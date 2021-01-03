@@ -9,3 +9,11 @@ export const AppWrapper = styled.div`
 export const AddBtnTxt = styled.span`
   color: white;
 `;
+
+export const InputSection = styled.div`
+  padding: 8px;
+`;
+
+export const InputSectionTitle = styled.span`
+  padding-right: 4px;
+`;

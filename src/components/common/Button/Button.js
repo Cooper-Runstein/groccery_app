@@ -13,7 +13,7 @@ const buttonColorsMap = {
 const StyledButton = styled.button`
   background: ${({ btnType }) => buttonColorsMap[btnType] ?? "white"};
   border-radius: 4px;
-  border: none;
+  border: ${({ border }) => (border ? "1px solid black" : "none")};;
   padding: 4px 8px;
 
   &:hover{
@@ -22,9 +22,9 @@ const StyledButton = styled.button`
 }
 `;
 
-export const Button = ({ children, type, ...btnProps }) => {
+export const Button = ({ children, border, type, ...btnProps }) => {
   return (
-    <StyledButton btnType={type} {...btnProps}>
+    <StyledButton border={border} btnType={type} {...btnProps}>
       {children}
     </StyledButton>
   );

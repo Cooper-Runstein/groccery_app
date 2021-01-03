@@ -5,12 +5,17 @@ import * as service from "./service";
 import awsExports from "./aws-exports";
 import { withAuthenticator } from "@aws-amplify/ui-react";
 
-import { AppWrapper, AddBtnTxt } from "./App.styles";
+import {
+  AppWrapper,
+  AddBtnTxt,
+  InputSection,
+  InputSectionTitle,
+} from "./App.styles";
 import { Item } from "./components";
 import { Button, buttonColors } from "./components/common";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
+import { faArrowDown, faArrowUp } from "@fortawesome/free-solid-svg-icons";
 
 Amplify.configure(awsExports);
 
@@ -25,8 +30,8 @@ function App() {
   }, []);
 
   const [state, setState] = useState({
-    inputName: "",
     inputDescription: "",
+    inputName: "",
     inputQuantity: 1,
     items: [],
   });
@@ -35,19 +40,27 @@ function App() {
     setState((p) => ({ ...p, inputName: e.target.value }));
   const setItemDescription = (e) =>
     setState((p) => ({ ...p, inputDescription: e.target.value }));
-  const setItemQuantity = (e) =>
-    setState((p) => ({ ...p, inputQuantity: e.target.value }));
+  const incItemQuantity = () =>
+    setState((p) => ({ ...p, inputQuantity: p.inputQuantity + 1 }));
+  const decItemQuantity = () =>
+    setState((p) => ({ ...p, inputQuantity: p.inputQuantity - 1 }));
 
   async function addItem() {
     const item = {
-      name: state.inputName,
       description: state.inputDescription,
+      name: state.inputName,
       quantity: state.inputQuantity,
     };
 
     try {
       service.addItem(item);
       await fetchAndSetItems();
+      setState((p) => ({
+        ...p,
+        inputDescription: "",
+        inputName: "",
+        inputQuantity: 1,
+      }));
     } catch (err) {
       console.log("error creating item:", err);
     }
@@ -65,25 +78,33 @@ function App() {
   return (
     <AppWrapper>
       <h3>Add Item</h3>
-      <div>
-        <span>Item: </span>
+      <InputSection>
+        <InputSectionTitle>Item*:</InputSectionTitle>
         <input onChange={setItemName} value={state.inputName} />
-      </div>
-      <div>
-        <span>Description: </span>
-        <input onChange={setItemDescription} value={state.inputDescription} />
-      </div>
-      <div>
-        <span>Quantity: {state.inputQuantity}</span>
-        <Button>
+      </InputSection>
+
+      <InputSection>
+        <InputSectionTitle>Quantity*: {state.inputQuantity}</InputSectionTitle>
+        <Button border onClick={incItemQuantity}>
           <FontAwesomeIcon color={"green"} icon={faArrowUp} />
         </Button>
-      </div>
-      <div>
+        {state.inputQuantity > 1 && (
+          <Button border onClick={decItemQuantity}>
+            <FontAwesomeIcon color={"red"} icon={faArrowDown} />
+          </Button>
+        )}
+      </InputSection>
+
+      <InputSection>
+        <InputSectionTitle>Description:</InputSectionTitle>
+        <input onChange={setItemDescription} value={state.inputDescription} />
+      </InputSection>
+
+      <InputSection>
         <Button onClick={addItem} type={buttonColors.blue}>
           <AddBtnTxt>Add</AddBtnTxt>
         </Button>
-      </div>
+      </InputSection>
 
       <div>
         {state.items.map((item) => {
