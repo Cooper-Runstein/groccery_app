@@ -16,6 +16,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { faArrowDown, faArrowUp } from "@fortawesome/free-solid-svg-icons";
 import { useApp } from "./useApp";
+import { getCreateItemSubscription } from "../service/service";
 
 Amplify.configure(awsExports);
 

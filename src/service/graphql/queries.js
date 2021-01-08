@@ -8,7 +8,7 @@ export const getItem = /* GraphQL */ `
       name
       description
       quantity
-      quantityDescription
+      crossed
       createdAt
       updatedAt
     }
@@ -26,7 +26,7 @@ export const listItems = /* GraphQL */ `
         name
         description
         quantity
-        quantityDescription
+        crossed
         createdAt
         updatedAt
       }

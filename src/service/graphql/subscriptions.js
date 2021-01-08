@@ -8,7 +8,7 @@ export const onCreateItem = /* GraphQL */ `
       name
       description
       quantity
-      quantityDescription
+      crossed
       createdAt
       updatedAt
     }
@@ -21,7 +21,7 @@ export const onUpdateItem = /* GraphQL */ `
       name
       description
       quantity
-      quantityDescription
+      crossed
       createdAt
       updatedAt
     }
@@ -34,7 +34,7 @@ export const onDeleteItem = /* GraphQL */ `
       name
       description
       quantity
-      quantityDescription
+      crossed
       createdAt
       updatedAt
     }

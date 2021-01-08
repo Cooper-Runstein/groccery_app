@@ -2,6 +2,27 @@ import React, { useEffect, useState } from "react";
 import * as service from "../service/service";
 
 export function useApp() {
+  const [state, setState] = useState({
+    inputDescription: "",
+    inputName: "",
+    inputQuantity: 1,
+    items: [],
+  });
+
+  const onCreateItem = React.useCallback(
+    (newItemData) => {
+      const newItem = newItemData.value.data.onCreateItem;
+      setState((p) => ({ ...p, items: [...p.items, newItem] }));
+    },
+    [state.items]
+  );
+
+  React.useEffect(() => {
+    const subscription = service.getCreateItemSubscription(onCreateItem);
+    console.log(subscription);
+    return () => subscription.unsubscribe();
+  }, [onCreateItem]);
+
   const fetchAndSetItems = async () => {
     const items = await service.fetchItems();
     setState((p) => ({ ...p, items }));
@@ -10,13 +31,6 @@ export function useApp() {
   useEffect(() => {
     fetchAndSetItems();
   }, []);
-
-  const [state, setState] = useState({
-    inputDescription: "",
-    inputName: "",
-    inputQuantity: 1,
-    items: [],
-  });
 
   const getInputValue = (e) => e.target.value;
 
@@ -40,7 +54,7 @@ export function useApp() {
 
     try {
       service.addItem(item);
-      await fetchAndSetItems();
+      // await fetchAndSetItems();
       setState((p) => ({
         ...p,
         inputDescription: "",

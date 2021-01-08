@@ -3,5 +3,5 @@ type Item @model {
   name: String!
   description: String
   quantity: Int
-  quantityDescription: String
+  crossed: Boolean
 }
