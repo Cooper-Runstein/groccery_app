@@ -9,6 +9,9 @@ export function useApp() {
     items: [],
   });
 
+  /************************************
+   ********* SUBSCRIPTIONS ************
+   ************************************/
   const onCreateItem = React.useCallback(
     (newItemData) => {
       const newItem = newItemData.value.data.onCreateItem;
@@ -17,11 +20,28 @@ export function useApp() {
     [state.items]
   );
 
+  /*HANDLE CREATE ITEM SUBSCRIPTION*/
   React.useEffect(() => {
     const subscription = service.getCreateItemSubscription(onCreateItem);
-    console.log(subscription);
     return () => subscription.unsubscribe();
   }, [onCreateItem]);
+
+  const onUpdateItem = React.useCallback(
+    (newItemData) => {
+      const newItem = newItemData.value.data.onUpdateItem;
+      setState((p) => ({
+        ...p,
+        items: p.items.map((i) => (i.id === newItem.id ? newItem : i)),
+      }));
+    },
+    [state.items]
+  );
+
+  /*HANDLE DELETE ITEM SUBSCRIPTION*/
+  React.useEffect(() => {
+    const subscription = service.getUpdateItemSubscription(onUpdateItem);
+    return () => subscription.unsubscribe();
+  }, [onUpdateItem]);
 
   const fetchAndSetItems = async () => {
     const items = await service.fetchItems();
@@ -54,7 +74,6 @@ export function useApp() {
 
     try {
       service.addItem(item);
-      // await fetchAndSetItems();
       setState((p) => ({
         ...p,
         inputDescription: "",
@@ -75,10 +94,15 @@ export function useApp() {
     }
   }
 
+  const setCrossItem = (id) => (crossed) => {
+    service.updateItem({ id, crossed });
+  };
+
   return {
     api: {
       deleteItem,
       addItem,
+      setCrossItem,
     },
     alterState: {
       setItemName,

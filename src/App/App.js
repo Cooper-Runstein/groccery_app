@@ -59,7 +59,13 @@ function App() {
 
       <div>
         {state.items.map((item) => {
-          return <Item item={item} deleteItem={api.deleteItem} />;
+          return (
+            <Item
+              item={item}
+              deleteItem={api.deleteItem}
+              setCrossed={api.setCrossItem(item.id)}
+            />
+          );
         })}
       </div>
     </AppWrapper>

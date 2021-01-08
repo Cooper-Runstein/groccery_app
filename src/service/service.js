@@ -1,9 +1,10 @@
 import { API, graphqlOperation } from "aws-amplify";
 import { listItems } from "./graphql/queries";
-import { onCreateItem } from "./graphql/subscriptions";
+import { onCreateItem, onUpdateItem } from "./graphql/subscriptions";
 import {
   createItem,
   deleteItem as deleteItemMutation,
+  updateItem as updateItemMutation,
 } from "./graphql/mutations";
 
 const defaultItemPartial = {
@@ -24,12 +25,19 @@ export const fetchItems = async () => {
 export const addItem = async (item) =>
   await API.graphql(graphqlOperation(createItem, { input: item }));
 
-export const getCreateItemSubscription = (handler) =>
-  API.graphql(graphqlOperation(onCreateItem)).subscribe({
+const createSubscription = (subscriptionFunc) => (handler) =>
+  API.graphql(graphqlOperation(subscriptionFunc)).subscribe({
     next: (itemData) => {
       handler(itemData);
     },
   });
 
+export const getCreateItemSubscription = createSubscription(onCreateItem);
+
+export const getUpdateItemSubscription = createSubscription(onUpdateItem);
+
 export const deleteItem = async (id) =>
   await API.graphql(graphqlOperation(deleteItemMutation, { input: { id } }));
+
+export const updateItem = async (input) =>
+  await API.graphql(graphqlOperation(updateItemMutation, { input }));

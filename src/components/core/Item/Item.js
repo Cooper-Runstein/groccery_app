@@ -38,13 +38,11 @@ const Description = styled.div`
   padding-left: 20vw;
 `;
 
-export const Item = ({ deleteItem, item }) => {
-  const [crossed, setCrossed] = useState(false);
-
+export const Item = ({ deleteItem, setCrossed, item }) => {
   return (
-    <Container crossed={crossed} onClick={() => setCrossed(!crossed)}>
+    <Container crossed={item.crossed} onClick={() => setCrossed(!item.crossed)}>
       <MainLine>
-        <Name key={item.id} crossed={crossed}>
+        <Name key={item.id} crossed={item.crossed}>
           {item.name}
         </Name>
         <p>{item.quantity}</p>
