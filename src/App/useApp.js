@@ -34,9 +34,26 @@ export function useApp() {
     [state.items]
   );
 
-  /*HANDLE DELETE ITEM SUBSCRIPTION*/
+  /*HANDLE UPDATE ITEM SUBSCRIPTION*/
   React.useEffect(() => {
     const subscription = service.getUpdateItemSubscription(onUpdateItem);
+    return () => subscription.unsubscribe();
+  }, [onUpdateItem]);
+
+  const onDeleteItem = React.useCallback(
+    (removedItemData) => {
+      const removedItem = removedItemData.value.data.onDeleteItem;
+      setState((p) => ({
+        ...p,
+        items: p.items.filter((i) => !i.id === removedItem.id),
+      }));
+    },
+    [state.items]
+  );
+
+  /*HANDLE DELETE ITEM SUBSCRIPTION*/
+  React.useEffect(() => {
+    const subscription = service.getDeleteItemSubscription(onDeleteItem);
     return () => subscription.unsubscribe();
   }, [onUpdateItem]);
 

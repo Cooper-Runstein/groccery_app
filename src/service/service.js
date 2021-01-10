@@ -1,6 +1,10 @@
 import { API, graphqlOperation } from "aws-amplify";
 import { listItems } from "./graphql/queries";
-import { onCreateItem, onUpdateItem } from "./graphql/subscriptions";
+import {
+  onCreateItem,
+  onDeleteItem,
+  onUpdateItem,
+} from "./graphql/subscriptions";
 import {
   createItem,
   deleteItem as deleteItemMutation,
@@ -25,6 +29,8 @@ const createSubscription = (subscriptionFunc) => (handler) =>
 export const getCreateItemSubscription = createSubscription(onCreateItem);
 
 export const getUpdateItemSubscription = createSubscription(onUpdateItem);
+
+export const getDeleteItemSubscription = createSubscription(onDeleteItem);
 
 export const fetchItems = async () => {
   const itemData = await API.graphql(graphqlOperation(listItems));
