@@ -7,6 +7,8 @@ import {
   updateItem as updateItemMutation,
 } from "./graphql/mutations";
 
+import { merge } from "lodash/fp";
+
 const defaultItemPartial = {
   description: "",
   quantity: 1,
@@ -15,10 +17,9 @@ const defaultItemPartial = {
 
 export const fetchItems = async () => {
   const itemData = await API.graphql(graphqlOperation(listItems));
-  const items = itemData.data.listItems.items.map((i) => ({
-    ...defaultItemPartial,
-    ...i,
-  }));
+  const items = itemData.data.listItems.items.map((i) =>
+    merge(i)(defaultItemPartial)
+  );
   return items;
 };
 
