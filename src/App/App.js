@@ -4,13 +4,8 @@ import React from "react";
 import awsExports from "../aws-exports";
 import { withAuthenticator } from "@aws-amplify/ui-react";
 
-import {
-  AppWrapper,
-  AddBtnTxt,
-  InputSection,
-  InputSectionTitle,
-} from "./App.styles";
-import { AddItem, Item } from "../components";
+import { AppWrapper } from "./App.styles";
+import { AddItem, Drawer, Item } from "../components";
 
 import { useApp } from "./useApp";
 
@@ -21,7 +16,10 @@ function App() {
 
   return (
     <AppWrapper>
-      <AddItem api={api} alterState={alterState} state={state} />
+      <Drawer>
+        <AddItem api={api} alterState={alterState} state={state} />
+      </Drawer>
+
       <div>
         {state.items.map((item) => {
           return (

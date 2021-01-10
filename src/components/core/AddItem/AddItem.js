@@ -5,6 +5,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDown, faArrowUp } from "@fortawesome/free-solid-svg-icons";
 import styled from "@emotion/styled";
 
+const Container = styled.div`
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  padding: 32px;
+  width: 100%;
+`;
+
 const AddBtnTxt = styled.span`
   color: white;
 `;
@@ -19,7 +27,7 @@ const InputSectionTitle = styled.span`
 
 export const AddItem = ({ alterState, api, state }) => {
   return (
-    <>
+    <Container>
       <h3>Add Item</h3>
       <InputSection>
         <InputSectionTitle>Item*:</InputSectionTitle>
@@ -51,6 +59,6 @@ export const AddItem = ({ alterState, api, state }) => {
           <AddBtnTxt>Add</AddBtnTxt>
         </Button>
       </InputSection>
-    </>
+    </Container>
   );
 };

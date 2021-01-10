@@ -7,6 +7,7 @@ export function useApp() {
     inputName: "",
     inputQuantity: 1,
     items: [],
+    openDrawer: false,
   });
 
   /************************************
@@ -98,6 +99,9 @@ export function useApp() {
     service.updateItem({ id, crossed });
   };
 
+  const toggleDrawer = () =>
+    setState((p) => ({ ...p, openDrawer: !p.openDrawer }));
+
   return {
     api: {
       deleteItem,
@@ -109,6 +113,7 @@ export function useApp() {
       setItemDescription,
       incItemQuantity,
       decItemQuantity,
+      toggleDrawer,
     },
     state,
   };
