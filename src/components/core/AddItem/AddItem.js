@@ -4,6 +4,7 @@ import { Button, buttonColors } from "../../common";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDown, faArrowUp } from "@fortawesome/free-solid-svg-icons";
 import styled from "@emotion/styled";
+import { colors } from "../../../styles/colors";
 
 const Container = styled.div`
   align-items: flex-start;
@@ -13,15 +14,26 @@ const Container = styled.div`
 `;
 
 const AddBtnTxt = styled.span`
-  color: white;
+  color: ${colors.charcoal};
 `;
 
 const InputSection = styled.div`
   padding: 8px;
 `;
 
+const Input = styled.input`
+  border-radius: 4px;
+`;
+
 const InputSectionTitle = styled.span`
   padding-right: 4px;
+`;
+
+const AddButton = styled(Button)`
+  background: white;
+  border: 2px solid ${colors.charcoal};
+  padding: 16px;
+  width: 100px;
 `;
 
 const useAddItems = (api) => {
@@ -72,7 +84,7 @@ export const AddItem = ({ api: globalApi }) => {
       <h3>Add Item</h3>
       <InputSection>
         <InputSectionTitle>Item*:</InputSectionTitle>
-        <input onChange={alterState.setItemName} value={state.inputName} />
+        <Input onChange={alterState.setItemName} value={state.inputName} />
       </InputSection>
 
       <InputSection>
@@ -89,16 +101,16 @@ export const AddItem = ({ api: globalApi }) => {
 
       <InputSection>
         <InputSectionTitle>Description:</InputSectionTitle>
-        <input
+        <Input
           onChange={alterState.setItemDescription}
           value={state.inputDescription}
         />
       </InputSection>
 
       <InputSection>
-        <Button onClick={api.addItem} type={buttonColors.blue}>
+        <AddButton onClick={api.addItem} type={buttonColors.blue}>
           <AddBtnTxt>Add</AddBtnTxt>
-        </Button>
+        </AddButton>
       </InputSection>
     </Container>
   );

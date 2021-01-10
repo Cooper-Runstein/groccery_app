@@ -13,18 +13,22 @@ const buttonColorsMap = {
 const StyledButton = styled.button`
   background: ${({ btnType }) => buttonColorsMap[btnType] ?? "white"};
   border-radius: 4px;
-  border: ${({ border }) => (border ? "1px solid black" : "none")};;
+  border: ${({ border }) => (border ? "1px solid black" : "none")};
   padding: 4px 8px;
 
-  &:hover{
+  &:hover {
     box-shadow: grey 1px 1px;
   }
-}
 `;
 
-export const Button = ({ children, border, type, ...btnProps }) => {
+export const Button = ({ className, children, border, type, ...btnProps }) => {
   return (
-    <StyledButton border={border} btnType={type} {...btnProps}>
+    <StyledButton
+      className={className}
+      border={border}
+      btnType={type}
+      {...btnProps}
+    >
       {children}
     </StyledButton>
   );

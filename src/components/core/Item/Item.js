@@ -3,14 +3,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 
 import { Button, buttonColors } from "../../common";
-import { useState } from "react";
+import { colors } from "../../../styles/colors";
 
 const Container = styled.div`
-  background: ${({ crossed }) => (crossed ? "#A0A0A0" : "#fbfefe")};
+  background: ${({ crossed }) => (crossed ? "#A0A0A0" : "#fff")};
+  border: 1px solid ${colors.charcoal};
   border-radius: 4px;
   box-shadow: grey 0px 2px;
-  padding: 8px;
+  color: ${colors.charcoal};
+  padding: 16px;
   margin-bottom: 8px;
+  width: 90%;
 
   :hover {
     border: 2px grey solid;

@@ -5,11 +5,13 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import { animated, useSpring } from "react-spring";
+import { colors } from "../../../styles/colors";
 
 const Container = styled(animated.div)`
   background: #ebf7f6;
   border-radius: 16px 16px 0 0;
   position: sticky;
+  color: ${colors.charcoal};
   bottom: 0;
   overflow: hidden;
   padding-left: 32px;
@@ -18,7 +20,7 @@ const Container = styled(animated.div)`
 
 const Control = styled.div`
   align-items: center;
-  background: #ebf7f6;
+  background: ${colors.lightBlue};
   border-radius: 16px 16px 0 0;
   display: flex;
   flex-direction: row;
