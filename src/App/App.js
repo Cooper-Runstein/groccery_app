@@ -10,13 +10,9 @@ import {
   InputSection,
   InputSectionTitle,
 } from "./App.styles";
-import { Item } from "../components";
-import { Button, buttonColors } from "../components/common";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { AddItem, Item } from "../components";
 
-import { faArrowDown, faArrowUp } from "@fortawesome/free-solid-svg-icons";
 import { useApp } from "./useApp";
-import { getCreateItemSubscription } from "../service/service";
 
 Amplify.configure(awsExports);
 
@@ -25,38 +21,7 @@ function App() {
 
   return (
     <AppWrapper>
-      <h3>Add Item</h3>
-      <InputSection>
-        <InputSectionTitle>Item*:</InputSectionTitle>
-        <input onChange={alterState.setItemName} value={state.inputName} />
-      </InputSection>
-
-      <InputSection>
-        <InputSectionTitle>Quantity*: {state.inputQuantity}</InputSectionTitle>
-        <Button border onClick={alterState.incItemQuantity}>
-          <FontAwesomeIcon color={"green"} icon={faArrowUp} />
-        </Button>
-        {state.inputQuantity > 1 && (
-          <Button border onClick={alterState.decItemQuantity}>
-            <FontAwesomeIcon color={"red"} icon={faArrowDown} />
-          </Button>
-        )}
-      </InputSection>
-
-      <InputSection>
-        <InputSectionTitle>Description:</InputSectionTitle>
-        <input
-          onChange={alterState.setItemDescription}
-          value={state.inputDescription}
-        />
-      </InputSection>
-
-      <InputSection>
-        <Button onClick={api.addItem} type={buttonColors.blue}>
-          <AddBtnTxt>Add</AddBtnTxt>
-        </Button>
-      </InputSection>
-
+      <AddItem api={api} alterState={alterState} state={state} />
       <div>
         {state.items.map((item) => {
           return (
