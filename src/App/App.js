@@ -12,18 +12,20 @@ import { useApp } from "./useApp";
 Amplify.configure(awsExports);
 
 function App() {
-  const { api, alterState, state } = useApp();
+  const { api, state } = useApp();
 
   return (
     <AppWrapper>
       <Drawer>
-        <AddItem api={api} alterState={alterState} state={state} />
+        <AddItem api={api} />
       </Drawer>
 
       <div>
+        <h2>LIST</h2>
         {state.items.map((item) => {
           return (
             <Item
+              key={item.id}
               item={item}
               deleteItem={api.deleteItem}
               setCrossed={api.setCrossItem(item.id)}

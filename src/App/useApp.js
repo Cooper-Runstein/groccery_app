@@ -3,11 +3,7 @@ import * as service from "../service/service";
 
 export function useApp() {
   const [state, setState] = useState({
-    inputDescription: "",
-    inputName: "",
-    inputQuantity: 1,
     items: [],
-    openDrawer: false,
   });
 
   /************************************
@@ -53,26 +49,7 @@ export function useApp() {
     fetchAndSetItems();
   }, []);
 
-  const getInputValue = (e) => e.target.value;
-
-  const setValueAtKey = (k) => (e) =>
-    setState((p) => ({ ...p, [k]: getInputValue(e) }));
-
-  const setItemName = setValueAtKey("inputName");
-  const setItemDescription = setValueAtKey("inputDescription");
-
-  const incItemQuantity = () =>
-    setState((p) => ({ ...p, inputQuantity: p.inputQuantity + 1 }));
-  const decItemQuantity = () =>
-    setState((p) => ({ ...p, inputQuantity: p.inputQuantity - 1 }));
-
-  async function addItem() {
-    const item = {
-      description: state.inputDescription,
-      name: state.inputName,
-      quantity: state.inputQuantity,
-    };
-
+  async function addItem(item) {
     try {
       service.addItem(item);
       setState((p) => ({
@@ -99,21 +76,11 @@ export function useApp() {
     service.updateItem({ id, crossed });
   };
 
-  const toggleDrawer = () =>
-    setState((p) => ({ ...p, openDrawer: !p.openDrawer }));
-
   return {
     api: {
       deleteItem,
       addItem,
       setCrossItem,
-    },
-    alterState: {
-      setItemName,
-      setItemDescription,
-      incItemQuantity,
-      decItemQuantity,
-      toggleDrawer,
     },
     state,
   };

@@ -1,4 +1,3 @@
-import { keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
 import React from "react";
 import ReactDOM from "react-dom";
@@ -8,8 +7,9 @@ import { animated, useSpring } from "react-spring";
 const Container = styled(animated.div)`
   background: #ebf7f6;
   border-radius: 16px 16px 0 0;
-  position: absolute;
+  position: sticky;
   bottom: 0;
+  overflow: hidden;
   width: 100%;
 `;
 

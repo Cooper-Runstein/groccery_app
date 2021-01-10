@@ -39,6 +39,7 @@ const Description = styled.div`
 `;
 
 export const Item = ({ deleteItem, setCrossed, item }) => {
+  console.log({ item });
   return (
     <Container crossed={item.crossed} onClick={() => setCrossed(!item.crossed)}>
       <MainLine>

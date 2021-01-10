@@ -28,9 +28,7 @@ export const getUpdateItemSubscription = createSubscription(onUpdateItem);
 
 export const fetchItems = async () => {
   const itemData = await API.graphql(graphqlOperation(listItems));
-  const items = itemData.data.listItems.items.map(
-    flip(merge(defaultItemPartial))
-  );
+  const items = itemData.data.listItems.items.map(merge(defaultItemPartial));
   return items;
 };
 
