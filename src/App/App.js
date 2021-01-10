@@ -4,7 +4,7 @@ import React from "react";
 import awsExports from "../aws-exports";
 import { withAuthenticator } from "@aws-amplify/ui-react";
 
-import { AppWrapper } from "./App.styles";
+import { AppWrapper, List } from "./App.styles";
 import { AddItem, Drawer, Item } from "../components";
 
 import { useApp } from "./useApp";
@@ -20,8 +20,8 @@ function App() {
         <AddItem api={api} />
       </Drawer>
 
-      <div>
-        <h2>LIST</h2>
+      <List>
+        <h2>ITEMS</h2>
         {state.items.map((item) => {
           return (
             <Item
@@ -32,7 +32,7 @@ function App() {
             />
           );
         })}
-      </div>
+      </List>
     </AppWrapper>
   );
 }
