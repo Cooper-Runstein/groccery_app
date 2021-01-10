@@ -90,6 +90,11 @@ export function useApp() {
   }
 
   const setCrossItem = (id) => (crossed) => {
+    // Update local state immediately, so UI doesn't have to wait for event
+    setState((p) => ({
+      ...p,
+      items: p.items.map((i) => (i.id === id ? { ...i, crossed } : i)),
+    }));
     service.updateItem({ id, crossed });
   };
 
