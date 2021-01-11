@@ -4,4 +4,12 @@ type Item @model {
   description: String
   quantity: Int
   crossed: Boolean
+  list: List @connection(name: "ListItems")
+}
+
+type List @model {
+  id: ID!
+  name: String!
+  members: [String]
+  items: [Item] @connection(name: "ListItems")
 }

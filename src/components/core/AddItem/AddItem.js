@@ -29,11 +29,15 @@ const InputSectionTitle = styled.span`
   padding-right: 4px;
 `;
 
+const ButtonSection = styled(InputSection)`
+  width: 100%;
+`;
+
 const AddButton = styled(Button)`
   background: white;
   border: 2px solid ${colors.charcoal};
   padding: 16px;
-  width: 100px;
+  width: 100%;
 `;
 
 const useAddItems = (api) => {
@@ -107,11 +111,11 @@ export const AddItem = ({ api: globalApi }) => {
         />
       </InputSection>
 
-      <InputSection>
+      <ButtonSection>
         <AddButton onClick={api.addItem} type={buttonColors.blue}>
           <AddBtnTxt>Add</AddBtnTxt>
         </AddButton>
-      </InputSection>
+      </ButtonSection>
     </Container>
   );
 };

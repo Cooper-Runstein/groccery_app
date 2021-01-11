@@ -10,11 +10,13 @@ import { colors } from "../../../styles/colors";
 const Container = styled(animated.div)`
   background: #ebf7f6;
   border-radius: 16px 16px 0 0;
-  position: sticky;
-  color: ${colors.charcoal};
   bottom: 0;
+  color: ${colors.charcoal};
+  margin: auto;
+  max-width: 800px;
   overflow: hidden;
-  padding-left: 32px;
+  padding: 0 32px;
+  position: sticky;
   width: 100%;
 `;
 
@@ -31,9 +33,9 @@ const Control = styled.div`
 const Background = styled.div`
   background: rgba(247, 247, 247, 0.6);
   height: 100vh;
-  width: 100%;
   position: absolute;
   top: 0;
+  width: 100%;
 `;
 
 export const Drawer = ({ children }) => {

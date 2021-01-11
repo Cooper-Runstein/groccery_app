@@ -55,7 +55,7 @@ export function useApp() {
   React.useEffect(() => {
     const subscription = service.getDeleteItemSubscription(onDeleteItem);
     return () => subscription.unsubscribe();
-  }, [onUpdateItem]);
+  }, [onDeleteItem]);
 
   const fetchAndSetItems = async () => {
     const items = await service.fetchItems();
