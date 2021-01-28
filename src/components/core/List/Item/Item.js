@@ -2,8 +2,8 @@ import styled from "@emotion/styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 
-import { Button, buttonColors } from "../../common";
-import { colors } from "../../../styles/colors";
+import { Button, buttonColors } from "../../../common";
+import { colors } from "../../../../styles/colors";
 
 const Container = styled.div`
   background: ${({ crossed }) => (crossed ? "#A0A0A0" : "#fff")};

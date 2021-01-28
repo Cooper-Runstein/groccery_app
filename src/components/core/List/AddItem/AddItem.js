@@ -1,10 +1,10 @@
 import React from "react";
 
-import { Button, buttonColors } from "../../common";
+import { Button, buttonColors } from "../../../common";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDown, faArrowUp } from "@fortawesome/free-solid-svg-icons";
 import styled from "@emotion/styled";
-import { colors } from "../../../styles/colors";
+import { colors } from "../../../../styles/colors";
 
 const Container = styled.div`
   align-items: flex-start;

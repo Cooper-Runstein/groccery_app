@@ -1,5 +1,5 @@
 import { API, graphqlOperation } from "aws-amplify";
-import { listItems } from "./graphql/queries";
+import { listItems, listLists } from "./graphql/queries";
 import {
   onCreateItem,
   onDeleteItem,
@@ -11,7 +11,7 @@ import {
   updateItem as updateItemMutation,
 } from "./graphql/mutations";
 
-import { flip, merge } from "lodash/fp";
+import { merge } from "lodash/fp";
 
 const defaultItemPartial = {
   description: "",
@@ -25,6 +25,10 @@ const createSubscription = (subscriptionFunc) => (handler) =>
       handler(itemData);
     },
   });
+
+/*
+ * ITEMS
+ */
 
 export const getCreateItemSubscription = createSubscription(onCreateItem);
 
@@ -46,3 +50,13 @@ export const deleteItem = async (id) =>
 
 export const updateItem = async (input) =>
   await API.graphql(graphqlOperation(updateItemMutation, { input }));
+
+/**
+ * LISTS
+ */
+
+export const fetchLists = async () => {
+  const itemData = await API.graphql(graphqlOperation(listLists));
+  const lists = itemData.data.listItems;
+  console.log({ lists });
+};

@@ -9,13 +9,10 @@ export function useApp() {
   /************************************
    ********* SUBSCRIPTIONS ************
    ************************************/
-  const onCreateItem = React.useCallback(
-    (newItemData) => {
-      const newItem = newItemData.value.data.onCreateItem;
-      setState((p) => ({ ...p, items: [...p.items, newItem] }));
-    },
-    [state.items]
-  );
+  const onCreateItem = React.useCallback((newItemData) => {
+    const newItem = newItemData.value.data.onCreateItem;
+    setState((p) => ({ ...p, items: [...p.items, newItem] }));
+  }, []);
 
   /*HANDLE CREATE ITEM SUBSCRIPTION*/
   React.useEffect(() => {
@@ -23,16 +20,13 @@ export function useApp() {
     return () => subscription.unsubscribe();
   }, [onCreateItem]);
 
-  const onUpdateItem = React.useCallback(
-    (newItemData) => {
-      const newItem = newItemData.value.data.onUpdateItem;
-      setState((p) => ({
-        ...p,
-        items: p.items.map((i) => (i.id === newItem.id ? newItem : i)),
-      }));
-    },
-    [state.items]
-  );
+  const onUpdateItem = React.useCallback((newItemData) => {
+    const newItem = newItemData.value.data.onUpdateItem;
+    setState((p) => ({
+      ...p,
+      items: p.items.map((i) => (i.id === newItem.id ? newItem : i)),
+    }));
+  }, []);
 
   /*HANDLE UPDATE ITEM SUBSCRIPTION*/
   React.useEffect(() => {
@@ -40,16 +34,13 @@ export function useApp() {
     return () => subscription.unsubscribe();
   }, [onUpdateItem]);
 
-  const onDeleteItem = React.useCallback(
-    (removedItemData) => {
-      const removedItem = removedItemData.value.data.onDeleteItem;
-      setState((p) => ({
-        ...p,
-        items: p.items.filter((i) => !i.id === removedItem.id),
-      }));
-    },
-    [state.items]
-  );
+  const onDeleteItem = React.useCallback((removedItemData) => {
+    const removedItem = removedItemData.value.data.onDeleteItem;
+    setState((p) => ({
+      ...p,
+      items: p.items.filter((i) => !i.id === removedItem.id),
+    }));
+  }, []);
 
   /*HANDLE DELETE ITEM SUBSCRIPTION*/
   React.useEffect(() => {
@@ -62,7 +53,12 @@ export function useApp() {
     setState((p) => ({ ...p, items }));
   };
 
+  const fetchLists = async () => {
+    await service.fetchLists();
+  };
+
   useEffect(() => {
+    fetchLists();
     fetchAndSetItems();
   }, []);
 
