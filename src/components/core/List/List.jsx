@@ -3,6 +3,8 @@ import { useApp } from "../../../App/useApp";
 import { AddItem } from "./AddItem/AddItem";
 import { Item } from "./Item";
 
+import FlipMove from "react-flip-move";
+
 import { Drawer } from ".././../common";
 import { useAppContext } from "../../../App/App";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -48,16 +50,16 @@ export const List = () => {
         <BackToLists onClick={goToListView}>
           <FontAwesomeIcon icon={faLongArrowAltLeft} /> Back to my lists
         </BackToLists>
-        {sortedItems.map((item) => {
-          return (
+        <FlipMove duration={500}>
+          {sortedItems.map((item) => (
             <Item
               key={item.id}
               item={item}
               deleteItem={api.deleteItem}
               setCrossed={api.setCrossItem(item.id)}
             />
-          );
-        })}
+          ))}
+        </FlipMove>
       </ListContainer>
     </>
   );

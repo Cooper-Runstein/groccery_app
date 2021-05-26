@@ -46,6 +46,7 @@ export const SelectList = () => {
       <ListsList>
         {state.lists.map((l) => (
           <ListOption
+            key={l.id}
             onClick={() => {
               api.fetchList(l.id);
             }}
@@ -55,7 +56,7 @@ export const SelectList = () => {
             </ListNameContainer>
             <Member>
               {l.members.map((email) => (
-                <div>
+                <div key={email}>
                   <FontAwesomeIcon icon={faUser} /> <span>{email}</span>
                 </div>
               ))}
