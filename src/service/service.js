@@ -1,5 +1,5 @@
 import { API, graphqlOperation } from "aws-amplify";
-import { listItems, listLists } from "./graphql/queries";
+import { listItems, listLists, getList } from "./graphql/queries";
 import {
   onCreateItem,
   onDeleteItem,
@@ -55,8 +55,18 @@ export const updateItem = async (input) =>
  * LISTS
  */
 
-export const fetchLists = async () => {
-  const itemData = await API.graphql(graphqlOperation(listLists));
-  const lists = itemData.data.listItems;
-  console.log({ lists });
+export const fetchListsForUser = async (email) => {
+  const itemData = await API.graphql(
+    graphqlOperation(listLists, {
+      filter: { members: { contains: email } },
+    })
+  );
+  const lists = itemData.data.listLists.items;
+  return lists;
+};
+
+export const fetchList = async (id) => {
+  const itemData = await API.graphql(graphqlOperation(getList, { id }));
+  const list = itemData.data.getList;
+  return list;
 };

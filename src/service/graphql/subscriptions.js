@@ -9,6 +9,16 @@ export const onCreateItem = /* GraphQL */ `
       description
       quantity
       crossed
+      list {
+        id
+        name
+        members
+        items {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
@@ -22,6 +32,16 @@ export const onUpdateItem = /* GraphQL */ `
       description
       quantity
       crossed
+      list {
+        id
+        name
+        members
+        items {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
@@ -35,6 +55,85 @@ export const onDeleteItem = /* GraphQL */ `
       description
       quantity
       crossed
+      list {
+        id
+        name
+        members
+        items {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateList = /* GraphQL */ `
+  subscription OnCreateList {
+    onCreateList {
+      id
+      name
+      members
+      items {
+        items {
+          id
+          name
+          description
+          quantity
+          crossed
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateList = /* GraphQL */ `
+  subscription OnUpdateList {
+    onUpdateList {
+      id
+      name
+      members
+      items {
+        items {
+          id
+          name
+          description
+          quantity
+          crossed
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteList = /* GraphQL */ `
+  subscription OnDeleteList {
+    onDeleteList {
+      id
+      name
+      members
+      items {
+        items {
+          id
+          name
+          description
+          quantity
+          crossed
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }

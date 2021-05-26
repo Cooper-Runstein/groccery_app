@@ -9,6 +9,16 @@ export const getItem = /* GraphQL */ `
       description
       quantity
       crossed
+      list {
+        id
+        name
+        members
+        items {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
@@ -27,6 +37,57 @@ export const listItems = /* GraphQL */ `
         description
         quantity
         crossed
+        list {
+          id
+          name
+          members
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getList = /* GraphQL */ `
+  query GetList($id: ID!) {
+    getList(id: $id) {
+      id
+      name
+      members
+      items {
+        items {
+          id
+          name
+          description
+          quantity
+          crossed
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listLists = /* GraphQL */ `
+  query ListLists(
+    $filter: ModelListFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listLists(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        members
+        items {
+          nextToken
+        }
         createdAt
         updatedAt
       }

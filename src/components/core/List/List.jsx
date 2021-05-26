@@ -4,11 +4,22 @@ import { AddItem } from "./AddItem/AddItem";
 import { Item } from "./Item";
 
 import { Drawer } from ".././../common";
+import { useAppContext } from "../../../App/App";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLongArrowAltLeft } from "@fortawesome/free-solid-svg-icons";
+import { getActiveList } from "../../../selectors/getActiveList/getActiveList";
+import { getSortedItems } from "../../../selectors/getSortedItems";
 
 export const ListContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-height: 100vh;
+`;
+
+const BackToLists = styled.div`
+  padding: 16px;
+  text-decoration: underline;
 `;
 
 export const Title = styled.h2`
@@ -16,26 +27,28 @@ export const Title = styled.h2`
   margin-top: 8px;
 `;
 
-function sortItems(a, b) {
-  if (!a.crossed && b.crossed) {
-    return -1;
-  }
-  if (a.crossed && !b.crossed) {
-    return 1;
-  }
-  return 0;
-}
-
 export const List = () => {
-  const { api, state } = useApp();
+  const { api } = useApp();
+  const {
+    state,
+    actions: { goToListView },
+  } = useAppContext();
+
+  const activeList = getActiveList(state);
+  const sortedItems = getSortedItems(state);
+
   return (
     <>
       <Drawer>
         <AddItem api={api} />
       </Drawer>
       <ListContainer>
+        <h1>{activeList.name}</h1>
         <Title>ITEMS</Title>
-        {state.items.sort(sortItems).map((item) => {
+        <BackToLists onClick={goToListView}>
+          <FontAwesomeIcon icon={faLongArrowAltLeft} /> Back to my lists
+        </BackToLists>
+        {sortedItems.map((item) => {
           return (
             <Item
               key={item.id}
