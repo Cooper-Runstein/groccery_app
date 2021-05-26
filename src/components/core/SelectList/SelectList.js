@@ -36,13 +36,14 @@ const ListName = styled.div`
 const Member = styled.div`
   padding: 4px;
   padding-left: 8px;
+  font-size: 12px;
 `;
 
 export const SelectList = () => {
   const { api, state } = useApp();
   return (
     <Container>
-      <h2>Pick a List</h2>
+      <h2>My Lists</h2>
       <ListsList>
         {state.lists.map((l) => (
           <ListOption

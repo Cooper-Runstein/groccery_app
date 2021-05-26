@@ -13,14 +13,16 @@ import { getActiveList } from "../../../selectors/getActiveList/getActiveList";
 import { getSortedItems } from "../../../selectors/getSortedItems";
 
 export const ListContainer = styled.div`
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-content: center;
   min-height: 100vh;
 `;
 
 const BackToLists = styled.div`
-  padding: 16px;
+  font-size: 10px;
+  padding: 8px;
   text-decoration: underline;
 `;
 
@@ -46,7 +48,6 @@ export const List = () => {
       </Drawer>
       <ListContainer>
         <h1>{activeList.name}</h1>
-        <Title>ITEMS</Title>
         <BackToLists onClick={goToListView}>
           <FontAwesomeIcon icon={faLongArrowAltLeft} /> Back to my lists
         </BackToLists>

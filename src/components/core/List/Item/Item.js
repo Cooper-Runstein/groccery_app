@@ -17,8 +17,8 @@ const Container = styled.div`
   width: 90%;
 
   :hover {
-    border: 2px grey solid;
-    box-shadow: grey 2px 2px;
+    border-left: 4px grey solid;
+    //box-shadow: grey 2px 2px;
     cursor: pointer;
   }
 `;
@@ -46,7 +46,18 @@ export const Item = React.forwardRef(
   ({ deleteItem, setCrossed, item }, ref) => {
     return (
       // We can't use ReactFlipMove with styled components
-      <div ref={ref} style={{ padding: 0, margin: 0 }}>
+      <div
+        ref={ref}
+        style={{
+          alignItems: "center",
+          display: "flex",
+          justifyContent: "center",
+          margin: 0,
+          padding: 0,
+          paddingBottom: "10px",
+          width: "100%",
+        }}
+      >
         <Container
           crossed={item.crossed}
           onClick={() => setCrossed(!item.crossed)}
