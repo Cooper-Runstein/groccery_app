@@ -1,14 +1,15 @@
 import { Auth } from "aws-amplify";
+import { filter } from "lodash";
+import { pipe, prop } from "lodash/fp";
 import React, { useEffect } from "react";
 import * as service from "../service/service";
+import { removeById } from "../utils/itterables";
 import { useAppContext } from "./App";
 
 export const Views = {
   list: "list_view",
   selectList: "select_list",
 };
-
-const filterOut = (remove) => (compare) => !compare === remove;
 
 export function useApp() {
   const {
@@ -35,7 +36,9 @@ export function useApp() {
 
   const onUpdateItem = React.useCallback(
     (newItemData) => {
+      console.log("ON UPDATE ITEM");
       const newItem = newItemData.value.data.onUpdateItem;
+      console.log({ newItem });
       setState((p) => ({
         ...p,
         items: p.items.map((i) => (i.id === newItem.id ? newItem : i)),
@@ -53,9 +56,10 @@ export function useApp() {
   const onDeleteItem = React.useCallback(
     (removedItemData) => {
       const removedItem = removedItemData.value.data.onDeleteItem;
+      console.log("ON DELETE ITEM");
       setState((p) => ({
         ...p,
-        items: p.items.filter((item) => filterOut(removedItem.id)(item.id)),
+        items: removeById(removedItem.id)(p.items),
       }));
     },
     [setState]
@@ -88,6 +92,7 @@ export function useApp() {
 
   const fetchList = React.useCallback(
     async (id) => {
+      console.log("FETCHING LIST");
       const list = await service.fetchList(id);
       const items = list.items.items;
       setState((p) => ({ ...p, items, listId: list.id, view: Views.list }));
@@ -110,10 +115,10 @@ export function useApp() {
   async function deleteItem(deleteItem) {
     try {
       await service.deleteItem(deleteItem.id);
-      // setState((p) => ({
-      //   ...p,
-      //   items: p.items.filter((item) => filterOut(deleteItem.id)(item.id)),
-      // }));
+      setState((p) => ({
+        ...p,
+        items: removeById(deleteItem)(p.items),
+      }));
     } catch (err) {
       console.log("error deleting item:", err);
     }

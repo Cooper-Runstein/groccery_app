@@ -41,6 +41,8 @@ export const List = () => {
   const activeList = getActiveList(state);
   const sortedItems = getSortedItems(state);
 
+  console.log({ sortedItems });
+
   return (
     <>
       <Drawer>
