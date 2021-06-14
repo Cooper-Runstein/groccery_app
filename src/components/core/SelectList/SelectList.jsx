@@ -3,6 +3,8 @@ import { faList, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useApp } from "../../../App/useApp";
 import { colors } from "../../../styles/colors";
+import { Button } from "../../common";
+import { CreateListForm } from "../CreateListForm";
 
 const Container = styled.div`
   display: flex;
@@ -62,9 +64,19 @@ export const SelectList = () => {
                 </div>
               ))}
             </Member>
+            <Button
+              onClick={(e) => {
+                e.stopPropagation();
+                api.deleteList(l);
+              }}
+              type={"red"}
+            >
+              Delete List
+            </Button>
           </ListOption>
         ))}
       </ListsList>
+      <CreateListForm />
     </Container>
   );
 };

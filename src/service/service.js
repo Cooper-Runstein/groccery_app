@@ -2,11 +2,15 @@ import { API, graphqlOperation } from "aws-amplify";
 import { listItems, listLists, getList } from "./graphql/queries";
 import {
   onCreateItem,
+  onCreateList,
   onDeleteItem,
+  onDeleteList,
   onUpdateItem,
 } from "./graphql/subscriptions";
 import {
   createItem,
+  createList,
+  deleteList as deleteListMutation,
   deleteItem as deleteItemMutation,
   updateItem as updateItemMutation,
 } from "./graphql/mutations";
@@ -26,12 +30,13 @@ const createSubscription = (subscriptionFunc) => (handler) =>
     },
   });
 
-const safeRequest = async (req, ignoredErrors) => {
+const safeRequest = async (req, ignoredErrors = []) => {
   try {
     return await API.graphql(req);
   } catch (errorData) {
     console.log("API ERROR CAUGHT");
-    if (ignoredErrors.map((e) => e.includes(errorData.errorData))) {
+    console.log({ errorData });
+    if (ignoredErrors.includes(errorData.errorData.message)) {
       console.log("API ERROR SAFELY HANDLED");
       return;
     }
@@ -71,6 +76,10 @@ export const updateItem = async (input) => {
  * LISTS
  */
 
+export const getDeleteListSubscription = createSubscription(onDeleteList);
+
+export const getCreateListSubscription = createSubscription(onCreateList);
+
 export const fetchListsForUser = async (email) => {
   const itemData = await safeRequest(
     graphqlOperation(listLists, {
@@ -85,4 +94,12 @@ export const fetchList = async (id) => {
   const itemData = await safeRequest(graphqlOperation(getList, { id }));
   const list = itemData.data.getList;
   return list;
+};
+
+export const addList = async (list) =>
+  await safeRequest(graphqlOperation(createList, { input: list }));
+
+export const deleteList = async (id) => {
+  console.log({ id });
+  await safeRequest(graphqlOperation(deleteListMutation, { input: { id } }));
 };

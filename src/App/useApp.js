@@ -1,6 +1,4 @@
 import { Auth } from "aws-amplify";
-import { filter } from "lodash";
-import { pipe, prop } from "lodash/fp";
 import React, { useEffect } from "react";
 import * as service from "../service/service";
 import { removeById } from "../utils/itterables";
@@ -71,6 +69,43 @@ export function useApp() {
     return () => subscription.unsubscribe();
   }, [onDeleteItem]);
 
+  const onDeleteList = React.useCallback(
+    (removedListData) => {
+      const removedList = removedListData.value.data.onDeleteList;
+      console.log("ON DELETE LIST");
+      setState((p) => ({
+        ...p,
+        lists: removeById(removedList.id)(p.lists),
+      }));
+    },
+    [setState]
+  );
+
+  /*HANDLE DELETE LIST SUBSCRIPTION*/
+  React.useEffect(() => {
+    const subscription = service.getDeleteListSubscription(onDeleteList);
+    return () => subscription.unsubscribe();
+  }, [onDeleteList]);
+
+  const onCreateList = React.useCallback(
+    (newListData) => {
+      const newList = newListData.value.data.onCreateList;
+      console.log("ON CREATE LIST");
+      if (!!state.lists.find(({ id }) => id === newList.id)) return;
+      setState((p) => ({
+        ...p,
+        lists: [...p.lists, newList],
+      }));
+    },
+    [setState, state]
+  );
+
+  /*HANDLE CREATE LIST SUBSCRIPTION*/
+  React.useEffect(() => {
+    const subscription = service.getCreateListSubscription(onCreateList);
+    return () => subscription.unsubscribe();
+  }, [onCreateList]);
+
   /************************************
    ********* AUTH ************
    ************************************/
@@ -112,6 +147,14 @@ export function useApp() {
     }
   }
 
+  async function addList(list) {
+    try {
+      service.addList(list);
+    } catch (err) {
+      console.log("error creating list:", err);
+    }
+  }
+
   async function deleteItem(deleteItem) {
     try {
       await service.deleteItem(deleteItem.id);
@@ -121,6 +164,21 @@ export function useApp() {
       }));
     } catch (err) {
       console.log("error deleting item:", err);
+    }
+  }
+
+  async function deleteList(deleteList) {
+    try {
+      await service.deleteList(deleteList.id);
+      setState((p) => {
+        console.log({ p });
+        return {
+          ...p,
+          lists: removeById(deleteList)(p.lists),
+        };
+      });
+    } catch (err) {
+      console.log("error deleting list:", err);
     }
   }
 
@@ -144,7 +202,9 @@ export function useApp() {
   return {
     api: {
       addItem,
+      addList,
       deleteItem,
+      deleteList,
       fetchList,
       setCrossItem,
     },
