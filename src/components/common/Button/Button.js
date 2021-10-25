@@ -14,7 +14,8 @@ const StyledButton = styled.button`
   background: ${({ btnType }) => buttonColorsMap[btnType] ?? "white"};
   border-radius: 4px;
   border: ${({ border }) => (border ? "1px solid black" : "none")};
-  padding: 4px 8px;
+  color: white;
+  padding: 6px 12px;
 
   &:hover {
     box-shadow: grey 1px 1px;
@@ -24,9 +25,9 @@ const StyledButton = styled.button`
 export const Button = ({ className, children, border, type, ...btnProps }) => {
   return (
     <StyledButton
-      className={className}
       border={border}
       btnType={type}
+      className={className}
       {...btnProps}
     >
       {children}

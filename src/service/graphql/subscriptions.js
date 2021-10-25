@@ -139,3 +139,33 @@ export const onDeleteList = /* GraphQL */ `
     }
   }
 `;
+export const onCreateHousehold = /* GraphQL */ `
+  subscription OnCreateHousehold {
+    onCreateHousehold {
+      id
+      members
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateHousehold = /* GraphQL */ `
+  subscription OnUpdateHousehold {
+    onUpdateHousehold {
+      id
+      members
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteHousehold = /* GraphQL */ `
+  subscription OnDeleteHousehold {
+    onDeleteHousehold {
+      id
+      members
+      createdAt
+      updatedAt
+    }
+  }
+`;

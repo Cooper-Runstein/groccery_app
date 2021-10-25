@@ -95,3 +95,30 @@ export const listLists = /* GraphQL */ `
     }
   }
 `;
+export const getHousehold = /* GraphQL */ `
+  query GetHousehold($id: ID!) {
+    getHousehold(id: $id) {
+      id
+      members
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listHouseholds = /* GraphQL */ `
+  query ListHouseholds(
+    $filter: ModelHouseholdFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listHouseholds(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        members
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;

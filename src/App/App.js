@@ -7,14 +7,16 @@ import { withAuthenticator } from "@aws-amplify/ui-react";
 import { SelectList } from "../components/core/SelectList";
 import { List } from "../components/core";
 import { Views } from "./useApp";
+import { AppHeader } from "./App.styles";
 
 Amplify.configure(awsExports);
 
 const AppContextWrapper = ({ children }) => {
   const [state, setState] = React.useState({
+    households: [],
     items: [],
-    lists: [],
     listId: undefined,
+    lists: [],
     view: Views.selectList,
   });
 
@@ -42,6 +44,7 @@ function App() {
 
   return (
     <div style={{ minHeight: "100vh" }}>
+      <AppHeader>Grocery App</AppHeader>
       {state?.view === Views.selectList && <SelectList />}
       {state?.view === Views.list && <List />}
     </div>

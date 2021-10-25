@@ -1,5 +1,10 @@
 import { API, graphqlOperation } from "aws-amplify";
-import { listItems, listLists, getList } from "./graphql/queries";
+import {
+  listItems,
+  listLists,
+  listHouseholds,
+  getList,
+} from "./graphql/queries";
 import {
   onCreateItem,
   onCreateList,
@@ -70,6 +75,20 @@ export const deleteItem = async (id) =>
 export const updateItem = async (input) => {
   const DNE = "DynamoDB:ConditionalCheckFailedException";
   await safeRequest(graphqlOperation(updateItemMutation, { input }), [DNE]);
+};
+
+/**
+ * HOUSEHOLDS
+ */
+
+export const fetchHouseholdsForUser = async (email) => {
+  const itemData = await safeRequest(
+    graphqlOperation(listHouseholds, {
+      filter: { members: { contains: email } },
+    })
+  );
+  const households = itemData.data.listHouseholds.items;
+  return households;
 };
 
 /**

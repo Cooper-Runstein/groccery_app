@@ -118,6 +118,13 @@ export function useApp() {
    ********* FETCH  ************
    ************************************/
 
+  const fetchHouseholdsForUser = React.useCallback(async () => {
+    const user = await getCurrentUserInfo();
+    const email = user.attributes.email;
+    const households = await service.fetchHouseholdsForUser(email);
+    setState((prev) => ({ ...prev, households }));
+  }, [setState]);
+
   const fetchListsForUser = React.useCallback(async () => {
     const user = await getCurrentUserInfo();
     const email = user.attributes.email;
@@ -198,6 +205,10 @@ export function useApp() {
   useEffect(() => {
     fetchListsForUser();
   }, [fetchListsForUser]);
+
+  useEffect(() => {
+    fetchHouseholdsForUser();
+  }, [fetchHouseholdsForUser]);
 
   return {
     api: {

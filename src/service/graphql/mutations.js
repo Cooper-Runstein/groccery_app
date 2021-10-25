@@ -157,3 +157,42 @@ export const deleteList = /* GraphQL */ `
     }
   }
 `;
+export const createHousehold = /* GraphQL */ `
+  mutation CreateHousehold(
+    $input: CreateHouseholdInput!
+    $condition: ModelHouseholdConditionInput
+  ) {
+    createHousehold(input: $input, condition: $condition) {
+      id
+      members
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateHousehold = /* GraphQL */ `
+  mutation UpdateHousehold(
+    $input: UpdateHouseholdInput!
+    $condition: ModelHouseholdConditionInput
+  ) {
+    updateHousehold(input: $input, condition: $condition) {
+      id
+      members
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteHousehold = /* GraphQL */ `
+  mutation DeleteHousehold(
+    $input: DeleteHouseholdInput!
+    $condition: ModelHouseholdConditionInput
+  ) {
+    deleteHousehold(input: $input, condition: $condition) {
+      id
+      members
+      createdAt
+      updatedAt
+    }
+  }
+`;

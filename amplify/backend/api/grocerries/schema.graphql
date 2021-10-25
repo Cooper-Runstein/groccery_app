@@ -13,3 +13,8 @@ type List @model {
   members: [String]
   items: [Item] @connection(name: "ListItems")
 }
+
+type Household @model {
+  id: ID!
+  members: [String]
+}
