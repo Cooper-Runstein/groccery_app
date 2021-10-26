@@ -21,11 +21,11 @@ export const ListContainer = styled.div`
 `;
 
 const BackToLists = styled.div`
+  cursor: pointer;
   font-size: 16px;
   font-weight: 600;
   padding: 8px;
   text-decoration: underline;
-  cursor: pointer;
 `;
 
 export const Title = styled.h2`

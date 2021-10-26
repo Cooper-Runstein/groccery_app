@@ -15,6 +15,7 @@ const StyledButton = styled.button`
   border-radius: 4px;
   border: ${({ border }) => (border ? "1px solid black" : "none")};
   color: white;
+  cursor: pointer;
   padding: 6px 12px;
 
   &:hover {
