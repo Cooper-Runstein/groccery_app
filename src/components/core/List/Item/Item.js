@@ -20,6 +20,7 @@ const Container = styled.div`
     border-left: 4px grey solid;
     //box-shadow: grey 2px 2px;
     cursor: pointer;
+    margin-right: -3px;
   }
 `;
 
@@ -30,8 +31,10 @@ const MainLine = styled.div`
 
 const ButtonContainer = styled.div`
   display: flex;
+  cursor: pointer;
   align-items: center;
   justify-content: center;
+  z-index: 2;
 `;
 
 const Name = styled.h4`
@@ -44,6 +47,10 @@ const Description = styled.div`
 
 export const Item = React.forwardRef(
   ({ deleteItem, setCrossed, item }, ref) => {
+    const handleDeleteItem = (e) => {
+      e.stopPropagation();
+      deleteItem(item);
+    };
     return (
       // We can't use ReactFlipMove with styled components
       <div
@@ -68,7 +75,7 @@ export const Item = React.forwardRef(
             </Name>
             <p>{item.quantity}</p>
             <ButtonContainer>
-              <Button onClick={() => deleteItem(item)} type={buttonColors.red}>
+              <Button onClick={handleDeleteItem} type={buttonColors.red}>
                 <FontAwesomeIcon color={"white"} icon={faTrashAlt} />
               </Button>
             </ButtonContainer>

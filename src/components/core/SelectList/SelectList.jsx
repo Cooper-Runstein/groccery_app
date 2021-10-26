@@ -47,18 +47,18 @@ export const SelectList = () => {
     <Container>
       <h2>My Lists</h2>
       <ListsList>
-        {state.lists.map((l) => (
+        {state.lists.map((list) => (
           <ListOption
-            key={l.id}
+            key={list.id}
             onClick={() => {
-              api.fetchList(l.id);
+              api.fetchList(list.id);
             }}
           >
             <ListNameContainer>
-              <FontAwesomeIcon icon={faList} /> <ListName>{l.name}</ListName>
+              <FontAwesomeIcon icon={faList} /> <ListName>{list.name}</ListName>
             </ListNameContainer>
             <Member>
-              {l.members.map((email) => (
+              {list.members.map((email) => (
                 <div key={email}>
                   <FontAwesomeIcon icon={faUser} /> <span>{email}</span>
                 </div>
@@ -67,7 +67,7 @@ export const SelectList = () => {
             <Button
               onClick={(e) => {
                 e.stopPropagation();
-                api.deleteList(l);
+                api.deleteList(list);
               }}
               type={"red"}
             >
