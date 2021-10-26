@@ -1,44 +1,18 @@
 import styled from "@emotion/styled";
-import { faList, faUser } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useApp } from "../../../App/useApp";
-import { colors } from "../../../styles/colors";
-import { Button } from "../../common";
 import { CreateListForm } from "../CreateListForm";
+import { ListOption } from "./components/ListOption";
 
 const Container = styled.div`
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
   padding: 32px 64px;
 `;
 
 const ListsList = styled.div`
   display: flex;
   flex-direction: column;
-`;
-
-const ListOption = styled.div`
-  border-radius: 4px;
-  padding: 8px;
-  box-shadow: 1px 1px ${colors.charcoal};
-  margin-top: 4px;
-`;
-
-const ListNameContainer = styled.div`
-  padding: 4px;
-  display: flex;
-  flex-direction: row;
-`;
-
-const ListName = styled.div`
-  padding-left: 4px;
-`;
-
-const Member = styled.div`
-  padding: 4px;
-  padding-left: 8px;
-  font-size: 12px;
 `;
 
 export const SelectList = () => {
@@ -49,31 +23,10 @@ export const SelectList = () => {
       <ListsList>
         {state.lists.map((list) => (
           <ListOption
-            key={list.id}
-            onClick={() => {
-              api.fetchList(list.id);
-            }}
-          >
-            <ListNameContainer>
-              <FontAwesomeIcon icon={faList} /> <ListName>{list.name}</ListName>
-            </ListNameContainer>
-            <Member>
-              {list.members.map((email) => (
-                <div key={email}>
-                  <FontAwesomeIcon icon={faUser} /> <span>{email}</span>
-                </div>
-              ))}
-            </Member>
-            <Button
-              onClick={(e) => {
-                e.stopPropagation();
-                api.deleteList(list);
-              }}
-              type={"red"}
-            >
-              Delete List
-            </Button>
-          </ListOption>
+            deleteList={api.deleteList}
+            fetchList={api.fetchList}
+            list={list}
+          />
         ))}
       </ListsList>
       <CreateListForm />

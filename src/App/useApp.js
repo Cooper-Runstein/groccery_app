@@ -54,7 +54,7 @@ export function useApp() {
   const onDeleteItem = React.useCallback(
     (removedItemData) => {
       const removedItem = removedItemData.value.data.onDeleteItem;
-      console.log("ON DELETE ITEM");
+
       setState((p) => ({
         ...p,
         items: removeById(removedItem.id)(p.items),
@@ -72,7 +72,7 @@ export function useApp() {
   const onDeleteList = React.useCallback(
     (removedListData) => {
       const removedList = removedListData.value.data.onDeleteList;
-      console.log("ON DELETE LIST");
+
       setState((p) => ({
         ...p,
         lists: removeById(removedList.id)(p.lists),
@@ -90,7 +90,7 @@ export function useApp() {
   const onCreateList = React.useCallback(
     (newListData) => {
       const newList = newListData.value.data.onCreateList;
-      console.log("ON CREATE LIST");
+
       if (!!state.lists.find(({ id }) => id === newList.id)) return;
       setState((p) => ({
         ...p,
@@ -134,7 +134,6 @@ export function useApp() {
 
   const fetchList = React.useCallback(
     async (id) => {
-      console.log("FETCHING LIST");
       const list = await service.fetchList(id);
       const items = list.items.items;
       setState((p) => ({ ...p, items, listId: list.id, view: Views.list }));

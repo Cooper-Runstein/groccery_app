@@ -18,6 +18,7 @@ const Container = styled(animated.div)`
   padding: 0 32px;
   position: sticky;
   width: 100%;
+  z-index: 100;
 `;
 
 const Control = styled.div`

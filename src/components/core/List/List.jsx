@@ -16,14 +16,16 @@ export const ListContainer = styled.div`
   align-items: center;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   min-height: 100vh;
 `;
 
 const BackToLists = styled.div`
-  font-size: 10px;
+  font-size: 16px;
+  font-weight: 600;
   padding: 8px;
   text-decoration: underline;
+  cursor: pointer;
 `;
 
 export const Title = styled.h2`
@@ -40,8 +42,6 @@ export const List = () => {
 
   const activeList = getActiveList(state);
   const sortedItems = getSortedItems(state);
-
-  console.log({ sortedItems });
 
   return (
     <>

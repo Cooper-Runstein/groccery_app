@@ -31,10 +31,13 @@ const MainLine = styled.div`
 
 const ButtonContainer = styled.div`
   display: flex;
-  cursor: pointer;
   align-items: center;
   justify-content: center;
   z-index: 2;
+`;
+
+const DeleteButton = styled(Button)`
+  cursor: pointer;
 `;
 
 const Name = styled.h4`
@@ -75,9 +78,9 @@ export const Item = React.forwardRef(
             </Name>
             <p>{item.quantity}</p>
             <ButtonContainer>
-              <Button onClick={handleDeleteItem} type={buttonColors.red}>
+              <DeleteButton onClick={handleDeleteItem} type={buttonColors.red}>
                 <FontAwesomeIcon color={"white"} icon={faTrashAlt} />
-              </Button>
+              </DeleteButton>
             </ButtonContainer>
           </MainLine>
           <Description>{item.description}</Description>
